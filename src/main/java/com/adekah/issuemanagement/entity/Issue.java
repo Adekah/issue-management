@@ -1,4 +1,4 @@
-package entity;
+package com.adekah.issuemanagement.entity;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.*;

@@ -1,4 +1,4 @@
-package entity;
+package com.adekah.issuemanagement.entity;
 
 
 import lombok.AllArgsConstructor;

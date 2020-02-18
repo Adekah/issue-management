@@ -1,4 +1,6 @@
-package entity;
+package com.adekah.issuemanagement.entity;
+import com.adekah.issuemanagement.entity.BaseEntity;
+import com.adekah.issuemanagement.entity.Issue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 @Entity
-@Table(name = "users", indexes = {@Index(name = "idx_username", columnList = "uname")})
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
