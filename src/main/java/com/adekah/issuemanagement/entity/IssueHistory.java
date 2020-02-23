@@ -1,9 +1,6 @@
 package com.adekah.issuemanagement.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,8 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "issue_history")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class IssueHistory extends BaseEntity {

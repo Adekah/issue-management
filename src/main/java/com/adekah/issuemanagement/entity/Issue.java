@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 @Table(name="issue")
 @Data
@@ -27,4 +28,8 @@ public class Issue extends Serializers.Base {
     @JoinColumn(name="assignee_user_id")
     @ManyToOne(optional = true,fetch = FetchType.LAZY)
     private User assigne;
+
+    @JoinColumn(name="project_id")
+    @ManyToOne(optional = true,fetch = FetchType.LAZY)
+    private Project project;
 }
