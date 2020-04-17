@@ -1,22 +1,26 @@
 package com.adekah.issuemanagement.service;
 
-
+import com.adekah.issuemanagement.dto.ProjectDto;
 import com.adekah.issuemanagement.entity.Project;
+import com.adekah.issuemanagement.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ProjectService {
-    Project save(Project project);
 
-    Project getById(Long id);
+    ProjectDto save(ProjectDto project);
 
-    List<Project> getByProjectCode(String projectCode);
+    ProjectDto getById(Long id);
 
-    List<Project> getByProjectCodeContains(String projectCode);
+    ProjectDto getByProjectCode(String projectCode);
 
-    Page<Project> getAllPageable(Pageable pageable);
+    List<ProjectDto> getByProjectCodeContains(String projectCode);
 
-    Boolean delete(Project project);
+    Page<ProjectDto> getAllPageable(Pageable pageable);
+
+    Boolean delete(ProjectDto project);
+
+    ProjectDto update(Long id, ProjectDto project);
 }

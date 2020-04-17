@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class IssueManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IssueManagementApplication.class, args);
-	}
-	@Bean //Projenin her hangi bir yerinde autowired edilerek çağırabilmek için.
-	public ModelMapper getModelMapper(){
-		return new ModelMapper();
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(IssueManagementApplication.class, args);
+    }
 
+    @Bean
+	public ModelMapper getModelMapper(){
+    	return new ModelMapper();
+	}
 }

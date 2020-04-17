@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IssueHistoryServiceImpl implements IssueHistoryService {
+
     private final IssueHistoryRepository issueHistoryRepository;
 
     public IssueHistoryServiceImpl(IssueHistoryRepository issueHistoryRepository) {
@@ -18,8 +19,9 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
     @Override
     public IssueHistory save(IssueHistory issueHistory) {
         if (issueHistory.getDate() == null) {
-            throw new IllegalArgumentException("Issue date can not be null");
+            throw new IllegalArgumentException("Issue date cannot be null");
         }
+
         issueHistory = issueHistoryRepository.save(issueHistory);
         return issueHistory;
     }
@@ -31,7 +33,6 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
 
     @Override
     public Page<IssueHistory> getAllPageable(Pageable pageable) {
-
         return issueHistoryRepository.findAll(pageable);
     }
 

@@ -1,5 +1,6 @@
 package com.adekah.issuemanagement.service;
 
+
 import com.adekah.issuemanagement.entity.IssueHistory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,5 +13,6 @@ public interface IssueHistoryService {
 
     Page<IssueHistory> getAllPageable(Pageable pageable);
 
-    Boolean delete(IssueHistory issueHistory);
+    Boolean delete (IssueHistory issueHistory);
+
 }

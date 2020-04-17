@@ -6,22 +6,21 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 public class TPage<T> {
-private int number;
-private int size;
-private int totalPages;
+
+    private int number;
+    private int size;
+    private Sort sort;
+    private int totalPages;
     private Long totalElements;
-private Sort sort;
-private List<T> content;
+    private List<T> content;
 
-public void setStat(Page page, List<T>list){
-    this.number=page.getNumber();
-    this.size=page.getSize();
-    this.totalPages=page.getTotalPages();
-    this.totalElements=page.getTotalElements();
-    this.sort=page.getSort();
-    this.content=list;
-
-}
-
+    public void setStat(Page page, List<T> list) {
+        this.number = page.getNumber();
+        this.size = page.getSize();
+        this.sort = page.getSort();
+        this.totalPages = page.getTotalPages();
+        this.totalElements = page.getTotalElements();
+        this.content = list;
+    }
 
 }

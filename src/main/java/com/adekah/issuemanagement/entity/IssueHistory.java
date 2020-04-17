@@ -1,16 +1,18 @@
 package com.adekah.issuemanagement.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
-
 
 @Entity
 @Table(name = "issue_history")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class IssueHistory extends BaseEntity {
 
     @Id
@@ -38,4 +40,6 @@ public class IssueHistory extends BaseEntity {
     @JoinColumn(name = "assignee_user_id")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private User assignee;
+
+
 }

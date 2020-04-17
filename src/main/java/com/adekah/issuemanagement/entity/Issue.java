@@ -1,35 +1,42 @@
 package com.adekah.issuemanagement.entity;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="issue")
+@Table(name = "issue")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor //constructor clası acmaya gerek kalmaması icin örn : public Issue(){}
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Issue extends Serializers.Base {
+public class Issue extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "description", length = 1000)
     private String description;
+
+    @Column(name = "details", length = 4000)
+    private String details;
+
     @Column(name = "date")
     private Date date;
-    @Column(name = "issue_status")
+
+    @Column(name = "issuetatus")
     @Enumerated(EnumType.STRING)
     private IssueStatus issueStatus;
 
-    @JoinColumn(name="assignee_user_id")
-    @ManyToOne(optional = true,fetch = FetchType.LAZY)
-    private User assigne;
+    @JoinColumn(name = "assigne_user_id")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    private User assignee;
 
     @JoinColumn(name="project_id")
     @ManyToOne(optional = true,fetch = FetchType.LAZY)
     private Project project;
+    // @ManyToOne --> bir cok ıssue bir tane user ile ilişkilendirilebilir.
+    // FetchType.LAZY sadece assignee için getter metodu çağrıldığında datayı getirir. EAGER olsaydı sürekli getirecekti
 }
