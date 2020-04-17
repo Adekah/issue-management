@@ -8,9 +8,10 @@ import com.adekah.issuemanagement.util.TPage;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-
+@Service
 public class IssueServiceImpl implements IssueService {
 
     private final IssueRepository issueRepository;
@@ -33,7 +34,8 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public IssueDto getById(Long id) {
-        return null;
+       Issue issue=issueRepository.getOne(id);
+        return modelMapper.map(issue,IssueDto.class);
     }
 
     @Override
@@ -47,7 +49,13 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Boolean delete(IssueDto issue) {
+    public Boolean delete(Long issueId) {
+        issueRepository.deleteById(issueId);
+        return true;
+    }
+
+    @Override
+    public IssueDto update(Long id, IssueDto issue) {
         return null;
     }
 }
