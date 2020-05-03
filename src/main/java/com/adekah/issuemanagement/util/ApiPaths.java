@@ -11,4 +11,8 @@ public final class ApiPaths {
     public static final class ProjectController {
         public static final String CTRL = BASE_PATH + "/project";
     }
+
+    public static final class ProjectVersionedController {
+        public static final String CTRL = BASE_PATH + "/project/versioning";
+    }
 }

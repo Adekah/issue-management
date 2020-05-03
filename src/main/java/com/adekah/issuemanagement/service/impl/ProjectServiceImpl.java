@@ -4,11 +4,13 @@ import com.adekah.issuemanagement.dto.ProjectDto;
 import com.adekah.issuemanagement.entity.Project;
 import com.adekah.issuemanagement.repository.ProjectRepository;
 import com.adekah.issuemanagement.service.ProjectService;
+import com.adekah.issuemanagement.util.TPage;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -54,8 +56,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<ProjectDto> getAllPageable(Pageable pageable) {
-        return null;
+    public TPage<ProjectDto> getAllPageable(Pageable pageable) {
+        Page<Project> data =projectRepository.findAll(pageable);
+        TPage<ProjectDto> response = new TPage<>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(),ProjectDto[].class)));
+        return response;
+
     }
 
     @Override

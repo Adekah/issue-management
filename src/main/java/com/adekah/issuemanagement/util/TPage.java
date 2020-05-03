@@ -1,10 +1,16 @@
 package com.adekah.issuemanagement.util;
 
+import com.adekah.issuemanagement.dto.ProjectDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TPage<T> {
 
     private int number;
@@ -22,5 +28,5 @@ public class TPage<T> {
         this.totalElements = page.getTotalElements();
         this.content = list;
     }
-
 }
+

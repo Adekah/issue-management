@@ -3,8 +3,10 @@ package com.adekah.issuemanagement.api;
 import com.adekah.issuemanagement.dto.ProjectDto;
 import com.adekah.issuemanagement.service.impl.ProjectServiceImpl;
 import com.adekah.issuemanagement.util.ApiPaths;
+import com.adekah.issuemanagement.util.TPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,13 @@ public class ProjectController {
 
     public ProjectController(ProjectServiceImpl projectServiceImpl) {
         this.projectServiceImpl = projectServiceImpl;
+    }
+
+    @GetMapping("/pagination")
+    @ApiOperation(value = "Get By Pagination Operation", response = ProjectDto.class)
+    public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {
+        TPage<ProjectDto> data = projectServiceImpl.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping("/{id}")

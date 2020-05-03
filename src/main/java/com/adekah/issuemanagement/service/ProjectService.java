@@ -3,6 +3,7 @@ package com.adekah.issuemanagement.service;
 import com.adekah.issuemanagement.dto.ProjectDto;
 import com.adekah.issuemanagement.entity.Project;
 import com.adekah.issuemanagement.entity.User;
+import com.adekah.issuemanagement.util.TPage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,7 +19,7 @@ public interface ProjectService {
 
     List<ProjectDto> getByProjectCodeContains(String projectCode);
 
-    Page<ProjectDto> getAllPageable(Pageable pageable);
+    TPage<ProjectDto> getAllPageable(Pageable pageable);
 
     Boolean delete(ProjectDto project);
 
