@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
 import {BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule} from "ngx-bootstrap";
 import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr";
+import {ApiService} from "./services/api.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr
       autoDismiss: true
     }),
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
