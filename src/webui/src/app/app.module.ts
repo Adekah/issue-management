@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import {BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule} from "ngx-bootstrap";
 import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr";
 import {ApiService} from "./services/api.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {ApiService} from "./services/api.service";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
