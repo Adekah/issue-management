@@ -10,6 +10,7 @@ import {BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, Pagin
 import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr";
 import {ApiService} from "./services/api.service";
 import {HttpClientModule} from "@angular/common/http";
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxDatatableModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),

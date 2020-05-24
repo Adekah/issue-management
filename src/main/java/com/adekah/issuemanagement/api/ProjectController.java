@@ -15,6 +15,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(ApiPaths.ProjectController.CTRL)
 @Api(value = ApiPaths.ProjectController.CTRL, description = "Project APIs")
+@CrossOrigin
 public class ProjectController {
 
     private final ProjectServiceImpl projectServiceImpl;
