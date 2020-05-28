@@ -5,6 +5,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmationComponent} from "../../shared/confirmation/confirmation.component";
 import {createViewChild} from "@angular/compiler/src/core";
+import {UserService} from "../../services/shared/user.service";
 
 @Component({
   selector: 'app-project',
@@ -19,9 +20,13 @@ export class ProjectComponent implements OnInit {
   page = new Page();
   cols = [];
   rows = [];
+  managerOptions=[];
 
 
-  constructor(private projectService: ProjectService, private modalService: BsModalService, private formBuilder: FormBuilder,) {
+  constructor(private projectService: ProjectService,
+              private modalService: BsModalService,
+              private formBuilder: FormBuilder,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -36,6 +41,11 @@ export class ProjectComponent implements OnInit {
     this.projectForm = this.formBuilder.group({
       'projectCode': [null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       'projectName': [null, [Validators.required, Validators.minLength(4)]]
+    })
+
+    this.userService.getAll().subscribe(res=>{
+      this.managerOptions=res;
+      console.log(res);
     })
 
   }
