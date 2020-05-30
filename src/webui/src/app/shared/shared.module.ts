@@ -4,6 +4,7 @@ import {ModalModule} from "ngx-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ConfirmationComponent} from './confirmation/confirmation.component';
 import {CommonModule} from "@angular/common";
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import {CommonModule} from "@angular/common";
     ReactiveFormsModule,
     ConfirmationComponent
   ],
-  declarations: [ConfirmationComponent]
+  declarations: [ConfirmationComponent ]
 })
 export class SharedModule {
 }

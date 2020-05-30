@@ -1,8 +1,11 @@
 package com.adekah.issuemanagement.service.impl;
 
 import com.adekah.issuemanagement.dto.ProjectDto;
+import com.adekah.issuemanagement.dto.UserDto;
 import com.adekah.issuemanagement.entity.Project;
+import com.adekah.issuemanagement.entity.User;
 import com.adekah.issuemanagement.repository.ProjectRepository;
+import com.adekah.issuemanagement.repository.UserRepository;
 import com.adekah.issuemanagement.service.ProjectService;
 import com.adekah.issuemanagement.util.TPage;
 import org.modelmapper.ModelMapper;
@@ -18,10 +21,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -34,6 +39,9 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         Project p = modelMapper.map(project, Project.class);
+        User user = userRepository.getOne(project.getManagerId());
+        p.setManager(user);
+
         p = projectRepository.save(p);
         project.setId(p.getId());
         return project;
@@ -57,9 +65,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public TPage<ProjectDto> getAllPageable(Pageable pageable) {
-        Page<Project> data =projectRepository.findAll(pageable);
+        Page<Project> data = projectRepository.findAll(pageable);
         TPage<ProjectDto> response = new TPage<>();
-        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(),ProjectDto[].class)));
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
         return response;
 
     }

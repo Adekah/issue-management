@@ -17,6 +17,7 @@ import {UserService} from "./services/shared/user.service";
 import {IssueService} from "./services/shared/issue.service";
 import {ProjectService} from "./services/shared/project.service";
 import {IssueHistoryService} from "./services/shared/issue-history.service";
+import {NotfoundComponent} from "./shared/notfound/notfound.component";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -28,7 +29,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     AppLayoutComponent,
     FooterComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
