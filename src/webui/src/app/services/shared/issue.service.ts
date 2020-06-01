@@ -8,13 +8,14 @@ import {map} from "rxjs/operators";
 })
 export class IssueService {
 
-  private ISSUE_PATH = "/İSSUE";
+  private ISSUE_PATH = "/issue";
+  private ISSUE_GET_BY_ID_DETAILS = this.ISSUE_PATH + "/detail"
 
   constructor(private  apiService: ApiService) {
   }
 
-  getAll(): Observable<any> {
-    return this.apiService.get(this.ISSUE_PATH).pipe(map(
+  getAll(page): Observable<any> {
+    return this.apiService.get(this.ISSUE_PATH + '/pagination', page).pipe(map(
       res => {
         if (res) {
           return res;
@@ -68,5 +69,17 @@ export class IssueService {
     ));
   }
 
+  getByIdWithDetails(id: number) {
+    return this.apiService.get(this.ISSUE_GET_BY_ID_DETAILS + id).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          console.log(res);
+          return {};
+        }
+      }
+    ))
+  }
 
 }
