@@ -3,7 +3,8 @@ package com.adekah.issuemanagement.api;
 
 import com.adekah.issuemanagement.dto.IssueDetailDto;
 import com.adekah.issuemanagement.dto.IssueDto;
-import com.adekah.issuemanagement.dto.ProjectDto;
+import com.adekah.issuemanagement.dto.IssueUpdateDto;
+import com.adekah.issuemanagement.entity.IssueStatus;
 import com.adekah.issuemanagement.service.impl.IssueServiceImpl;
 import com.adekah.issuemanagement.util.ApiPaths;
 import com.adekah.issuemanagement.util.TPage;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping(ApiPaths.IssueController.CTRL)
@@ -56,15 +59,20 @@ public class IssueController {
 
     // @RequestMapping(path = "/update",method = RequestMethod.PUT) Böyle de yazılabilir.
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update Issue Operation", response = IssueDto.class)
-    public ResponseEntity<IssueDto> updateProject(@PathVariable(value = "id", required = true) Long id, @RequestBody IssueDto issue) {
-        return ResponseEntity.ok(issueServiceImpl.update(id, issue));
+    @ApiOperation(value = "Update Operation", response = IssueDto.class)
+    public ResponseEntity<IssueDetailDto> updateProject(@PathVariable(value = "id", required = true) Long id, @Valid @RequestBody IssueUpdateDto issue) {
+        return ResponseEntity.ok(issueServiceImpl.update(id,issue));
     }
-
-    @DeleteMapping("/{id}")
+    
     @ApiOperation(value = "Delete Issue Operation", response = boolean.class)
     public ResponseEntity<Boolean> delete(@PathVariable(value = "id", required = true) Long id) {
         return ResponseEntity.ok(issueServiceImpl.delete(id));
+    }
+
+    @GetMapping("/statuses")
+    @ApiOperation(value = "Get All Issue Statuses Operation", response = String.class,responseContainer = "List")
+    public ResponseEntity<List<IssueStatus>> getAll() {
+        return ResponseEntity.ok(Arrays.asList(IssueStatus.values()));
     }
 
 

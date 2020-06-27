@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Page} from "../../common/page";
 import {IssueService} from "../../services/shared/issue.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ProjectService} from "../../services/shared/project.service";
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-issue',
@@ -9,14 +12,34 @@ import {IssueService} from "../../services/shared/issue.service";
 })
 export class IssueComponent implements OnInit {
 
+  modalRef: BsModalRef;
   page = new Page();
   rows = [];
+  projectOptions = [];
 
-  constructor(private issueService: IssueService) {
+  issueForm: FormGroup;
+
+  constructor(private issueService: IssueService,
+              private projectService: ProjectService,
+              private modalService: BsModalService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.issueForm = this.formBuilder.group({
+      projectId: [null, [Validators.required]],
+      description: [null, [Validators.required]]
+    });
+
+    this.loadProjects();
+
     this.setPage({offset: 0});
+  }
+
+  private loadProjects() {
+    this.projectService.getAll().subscribe(response => {
+      this.projectOptions = response;
+    });
   }
 
   setPage(pageInfo) {
@@ -27,6 +50,28 @@ export class IssueComponent implements OnInit {
       this.page.totalElements = pagedData.totalElements;
       this.rows = pagedData.content;
     })
+  }
+
+  get f() {
+    return this.issueForm.controls
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  saveIssue() {
+    this.issueService.createIssue(this.issueForm.value).subscribe(
+      resp => {
+        this.issueForm.reset();
+        this.setPage({offset: 0});
+        this.closeAndResetModal();
+      }
+    );
+  }
+
+  closeAndResetModal() {
+    this.modalRef.hide();
   }
 
 }

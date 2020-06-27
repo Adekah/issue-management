@@ -3,8 +3,13 @@ package com.adekah.issuemanagement.service.impl;
 import com.adekah.issuemanagement.dto.IssueDetailDto;
 import com.adekah.issuemanagement.dto.IssueDto;
 import com.adekah.issuemanagement.dto.IssueHistoryDto;
+import com.adekah.issuemanagement.dto.IssueUpdateDto;
 import com.adekah.issuemanagement.entity.Issue;
+import com.adekah.issuemanagement.entity.IssueStatus;
+import com.adekah.issuemanagement.entity.User;
 import com.adekah.issuemanagement.repository.IssueRepository;
+import com.adekah.issuemanagement.repository.ProjectRepository;
+import com.adekah.issuemanagement.repository.UserRepository;
 import com.adekah.issuemanagement.service.IssueHistoryService;
 import com.adekah.issuemanagement.service.IssueService;
 import com.adekah.issuemanagement.util.TPage;
@@ -13,30 +18,43 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class IssueServiceImpl implements IssueService {
 
-    private final IssueRepository issueRepository;
-    private final ModelMapper modelMapper;
-    private final IssueHistoryService issueHistoryService;
 
-    public IssueServiceImpl(IssueRepository issueRepository, ModelMapper modelMapper, IssueHistoryService issueHistoryService) {
+    private final IssueRepository issueRepository;
+    private final UserRepository userRepository;
+    private final ProjectRepository projectRepository;
+    private final IssueHistoryService issueHistoryService;
+    private final ModelMapper modelMapper;
+
+    public IssueServiceImpl(IssueRepository issueRepository,ProjectRepository projectRepository, UserRepository userRepository, IssueHistoryService issueHistoryService, ModelMapper modelMapper) {
         this.issueRepository = issueRepository;
         this.modelMapper = modelMapper;
         this.issueHistoryService = issueHistoryService;
+        this.userRepository =userRepository;
+        this.projectRepository=projectRepository;
     }
 
     @Override
     public IssueDto save(IssueDto issue) {
-        if (issue.getDate() == null) {
-            throw new IllegalArgumentException("Issue Date cannot be null");
-        }
-        Issue issueDb = modelMapper.map(issue, Issue.class);
-        issueDb = issueRepository.save(issueDb);
-        return modelMapper.map(issueDb, IssueDto.class);
+        // Bussiness Logic
+        issue.setDate(new Date());
+        issue.setIssueStatus(IssueStatus.OPEN);
+
+
+        Issue issueEntity = modelMapper.map(issue, Issue.class);
+
+        issueEntity.setProject(projectRepository.getOne(issue.getProjectId()));
+        issueEntity = issueRepository.save(issueEntity);
+
+        issue.setId(issueEntity.getId());
+        return issue;
     }
 
     @Override
@@ -68,6 +86,23 @@ public class IssueServiceImpl implements IssueService {
         issueRepository.deleteById(issueId);
         return true;
     }
+
+    @Transactional
+    public IssueDetailDto update(Long id, IssueUpdateDto issue) {
+        Issue issueDb = issueRepository.getOne(id);
+        User user = userRepository.getOne(issue.getAssignee_id());
+        issueHistoryService.addHistory(id,issueDb);
+
+        issueDb.setAssignee(user);
+        issueDb.setDate(issue.getDate());
+        issueDb.setDescription(issue.getDescription());
+        issueDb.setDetails(issue.getDetails());
+        issueDb.setIssueStatus(issue.getIssueStatus());
+        issueDb.setProject(projectRepository.getOne(issue.getProject_id()));
+        issueRepository.save(issueDb);
+        return getByIdWithDetails(id);
+    }
+
 
     @Override
     public IssueDto update(Long id, IssueDto issue) {

@@ -17,6 +17,7 @@ import java.util.List;
 @ToString
 
 public class User extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,8 +25,7 @@ public class User extends BaseEntity {
     @Column(name = "uname", length = 100, unique = true)
     private String username;
 
-    //@JsonIgnore kullanılabilir bu durumdsa Json a yazılmaz
-    @Column(name = "password", length = 200)
+    @Column(name = "pwd", length = 200)
     private String password;
 
     @Column(name = "name_surname", length = 200)

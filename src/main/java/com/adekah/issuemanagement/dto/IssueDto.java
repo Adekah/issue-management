@@ -14,24 +14,19 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IssueDto {
-    @ApiModelProperty(value = "Issue Id",readOnly = true)
+    @ApiModelProperty(required = true,value = "ID")
     private Long id;
-
-    @ApiModelProperty(value="Issue Description",required = true)
+    @ApiModelProperty(required = true,value = "Description")
     private String description;
-
-    @ApiModelProperty(value="Issue Details")
+    @ApiModelProperty(required = true,value = "Issue Details")
     private String details;
-
-    @ApiModelProperty(value="Issue Create Date",required = true)
+    @ApiModelProperty(required = true,value = "Date")
     private Date date;
-
-    @ApiModelProperty(value="Issue Status",required = true)
+    @ApiModelProperty(required = true,value = "Issue Status")
     private IssueStatus issueStatus;
-
-    @ApiModelProperty(value="Issue Assignee")
+    @ApiModelProperty(required = true,value = "Assignee")
     private UserDto assignee;
-
-    @ApiModelProperty(value="Issue Project",required = true)
+    @ApiModelProperty(required = true,value = "Project")
     private ProjectDto project;
+    private Long projectId;
 }
