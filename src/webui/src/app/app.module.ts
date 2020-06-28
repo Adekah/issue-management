@@ -23,6 +23,8 @@ import {AuthGuard} from "./security/auth.guard";
 import {JwtInterceptor} from "./security/jwt.interceptor";
 import {ErrorInterceptor} from "./security/authentication.interceptor";
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,10 +38,13 @@ export const createTranslateLoader = (http: HttpClient) => {
     HeaderComponent,
     SidebarComponent,
     NotfoundComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     NgxDatatableModule,

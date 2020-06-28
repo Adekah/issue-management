@@ -16,7 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/token")
 public class AccountController {
 
     @Autowired
